@@ -162,7 +162,7 @@ class Booker:
                 'Could not check schedule.  This is likey do to a page format '
                 'change.  Please open an issue on Github to notify the repo '
                 'maintainers. ')
-            raise BookingError('Could not parse schedule.') from error
+            raise TypeError('Could not parse schedule.') from error
 
     def book_slot(self, slot: datetime.datetime, info: str) -> None:
         """Book a slot with the information received from check_schedule.
@@ -225,7 +225,7 @@ class Booker:
             response.status_code)
         if 'Official Permit' not in response.text:
             logging.error('Confirmation failed: invalid access.')
-            raise BookingError('Booking confirmation failed')
+
 
     def book(self, time: datetime.datetime) -> None:
         """Book a lane in the pool at a desired time.  The next free lane
@@ -241,5 +241,6 @@ class Booker:
         self.authenticate()
         slots = self.check_schedule()
         if slots[time] is None:
+            print("Foo")
             raise BookingError('No avaiable places at the desired time.')
         self.book_slot(time, slots[time])

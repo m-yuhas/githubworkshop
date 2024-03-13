@@ -6,10 +6,6 @@ the utilities to book it assuming proper login information is provided."""
 from typing import Dict, Union
 
 
-import datetime
-import logging
-import re
-
 
 import bs4
 import requests
@@ -68,6 +64,7 @@ class Booker:
         self.cookie_jar = response.cookies.get_dict()
         logging.debug('Received the following cookies:')
         for key, value in self.cookie_jar.items():
+            print(key)
             logging.debug('%s: %s', key, value)
 
     def get_headers(self) -> Dict[str, str]:
